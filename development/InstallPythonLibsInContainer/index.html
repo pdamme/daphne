@@ -9,10 +9,8 @@
       
       
       
-        <link rel="prev" href="../ImplementBuiltinKernel/">
+        <link rel="prev" href="../Testing/">
       
-      
-        <link rel="next" href="../WriteDocs/">
       
       
       <link rel="icon" href="../../assets/logo_small.png">
@@ -20,7 +18,7 @@
     
     
       
-        <title>Profiling - DAPHNE</title>
+        <title>InstallPythonLibsInContainer - DAPHNE</title>
       
     
     
@@ -74,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#profiling-in-daphne" class="md-skip">
+        <a href="#installing-python-libraries-in-the-daphne-dev-container" class="md-skip">
           Skip to content
         </a>
       
@@ -109,7 +107,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Profiling
+              InstallPythonLibsInContainer
             
           </span>
         </div>
@@ -1257,32 +1255,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Profiling
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../Profiling/" class="md-nav__link">
         
   
   
@@ -1293,35 +1269,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#known-issues-todo" class="md-nav__link">
-    <span class="md-ellipsis">
-      Known Issues / TODO
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1377,10 +1324,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../InstallPythonLibsInContainer/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    InstallPythonLibsInContainer
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1391,6 +1360,44 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-additional-python-libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Additional Python Libraries
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dont-forget" class="md-nav__link">
+    <span class="md-ellipsis">
+      Don't Forget
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1430,9 +1437,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#known-issues-todo" class="md-nav__link">
+  <a href="#installing-additional-python-libraries" class="md-nav__link">
     <span class="md-ellipsis">
-      Known Issues / TODO
+      Installing Additional Python Libraries
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dont-forget" class="md-nav__link">
+    <span class="md-ellipsis">
+      Don't Forget
     </span>
   </a>
   
@@ -1457,25 +1473,42 @@
   
 
 
-<h1 id="profiling-in-daphne">Profiling in DAPHNE</h1>
-<p>For a general overview of the profiling support in DAPHNE see the <a href="/daphne/Profiling">user
-profiling documentation</a>.</p>
-<p>Profiling is implemented via an instrumentation pass that injects calls to the
-<code>StartProfiling</code> and <code>StopProfiling</code> kernels at the start and end of
-each block. In turn, the kernels call the PAPI-HL API start and stop functions.</p>
-<h2 id="known-issues-todo">Known Issues / TODO</h2>
-<ul>
-<li>For scripts with multiple blocks (e.g. UDFs), the compiler will generate
-  profiling passes for each block separately instead of a single script-wide
-  profiling pass.</li>
-<li>The profiling kernels should be exposed at the DSL / IR level, so that users
-  can instrument / profile specific parts of their script. This will also need
-  compiler cooperation, to make sure that the profiled bock is not rearranged /
-  fused with other operations.</li>
-<li>To aid with the development and regression tracking of the runtime, the
-  profiling kernels could also be extended to support profiling specific
-  kernels or parts of kernels.</li>
-</ul>
+<h1 id="installing-python-libraries-in-the-daphne-dev-container">Installing Python Libraries in the <code>daphne-dev</code> Container</h1>
+<p>The <code>daphne-dev</code> container (see <a href="/daphne/GettingStarted">GettingStarted</a>) already contains all <em>required</em> dependencies for running DAPHNE. However, there can be reasons to install additional Python libraries inside the container, e.g.:</p>
+<ol>
+<li><strong>To use/test DaphneLib's data exchange with TensorFlow and PyTorch.</strong> 
+    DaphneLib, DAPHNE's Python API, supports the efficient data exchange with widely-used Python libraries like numpy, pandas, TensorFlow, and PyTorch.
+    Numpy and pandas are required for DaphneLib.
+    Thus, they are already installed in the <code>daphne-dev</code> container.
+    In contrast to that, TensorFlow and PyTorch are optional for DaphneLib; if these libraries are not installed on the system, DaphneLib cannot exchange data with them, but all remaining features still work.
+    Likewise, the test cases related to the data exchange with TensorFlow and PyTorch will only run if these libraries are installed.
+    As TensorFlow and PyTorch would increase the <code>daphne-dev</code> container size by several gigabytes, they are <em>not</em> included in the container.</li>
+<li><strong>To add support for additional Python libraries in DaphneLib.</strong>
+    For instance, while implementing efficient data exchange with these additional libraries.</li>
+<li><strong>To build integrated data analysis pipelines involving additional Python libraries.</strong>
+    For instance, for experiments.</li>
+</ol>
+<h2 id="installing-additional-python-libraries">Installing Additional Python Libraries</h2>
+<p>Additional Python libraries are best installed in a <em>Python virtual environment</em> inside the <code>daphne-dev</code> container.
+To that end, execute the following commands inside the container:</p>
+<p><strong>Create a Python virtual environment and activate it:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3.12-venv
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>daphne-venv
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">source</span><span class="w"> </span>daphne-venv/bin/activate
+</code></pre></div>
+<p>Here, we call the virtual environment <code>daphne-venv</code>.
+Feel free to choose a different name.</p>
+<p><strong>Install the desired Python libraries using <code>pip</code>:</strong></p>
+<p>For instance, if you want to use/test DaphneLib's efficient data transfer with widely-used Python libraries like numpy, pandas, TensorFlow, and PyTorch, install the following libraries.
+Feel free to install any library you like.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span>numpy<span class="w"> </span>pandas<span class="w"> </span>tensorflow<span class="w"> </span>torch
+</code></pre></div>
+<p>The libraries you install that way will be stored in the <code>daphne-venv</code> directory on the host and, thus, keep existing after you shut down the container.</p>
+<h2 id="dont-forget">Don't Forget</h2>
+<p>Every time you enter the <code>daphne-dev</code> container, make sure to activate the Python virtual environment again:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">source</span><span class="w"> </span>daphne-venv/bin/activate
+</code></pre></div>
 
 
 
